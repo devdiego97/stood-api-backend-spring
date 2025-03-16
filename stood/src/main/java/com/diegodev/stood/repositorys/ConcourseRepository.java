@@ -2,8 +2,8 @@ package com.diegodev.stood.repositorys;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.diegodev.stood.entites.ConcoursesEntity;
+import com.diegodev.stood.entites.ConcourseEntity;
 
-public interface ConcourseRepository extends JpaRepository<ConcoursesEntity,Long>{
+public interface ConcourseRepository extends JpaRepository<ConcourseEntity,Long>{
 
 }

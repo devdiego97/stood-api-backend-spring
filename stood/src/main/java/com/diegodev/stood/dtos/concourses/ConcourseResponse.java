@@ -1,13 +1,16 @@
 package com.diegodev.stood.dtos.concourses;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.diegodev.stood.enums.Abrangency;
 import com.diegodev.stood.enums.Levels;
 import com.diegodev.stood.enums.Status;
 
 public record ConcourseResponse(
-    Long id,
+   Long id,
     String title,
     String about,
     String cover,
@@ -16,7 +19,10 @@ public record ConcourseResponse(
     Status status,
     Abrangency abrangency,
     Levels level,
-    String urlSubscription
+    String urlSubscription,
+    BigDecimal mediaSalary,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt
 ) {
 
 }

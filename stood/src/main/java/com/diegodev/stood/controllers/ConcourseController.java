@@ -1,30 +1,55 @@
 package com.diegodev.stood.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.diegodev.stood.dtos.concourses.ConcourseRequest;
+import com.diegodev.stood.dtos.concourses.ConcourseResponse;
+import com.diegodev.stood.services.ConcourseService;
 
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/concourses")
+@RequiredArgsConstructor
 public class ConcourseController {
-    
 
-    @GetMapping()
-    public String getAllConcourses(){
-        return "lista de concursos";
+    private final ConcourseService concourseService;
+
+    @GetMapping
+    public Page<ConcourseResponse> getAllConcourses(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return concourseService.listAllConcourses(pageable);
     }
 
-    public String getConcourseId(){
-        return "lista de concursos";
+    @GetMapping("/{id}")
+    public ResponseEntity<ConcourseResponse> getConcourseById(@PathVariable Long id) {
+        ConcourseResponse response = concourseService.getConcourseById(id);
+        return ResponseEntity.ok(response);
     }
-    public String addNewConcourse(){
-        return "lista de concursos";
+
+    @PostMapping
+    public ResponseEntity<ConcourseResponse> addNewConcourse(@RequestBody ConcourseRequest concourseRequest) {
+        ConcourseResponse response = concourseService.createConcourse(concourseRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    public String updateConcourseId(){
-        return "lista de concursos";
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ConcourseResponse> updateConcourseById(
+            @PathVariable Long id,
+            @RequestBody ConcourseRequest concourseRequest) {
+        ConcourseResponse response = concourseService.updateConcourse(id, concourseRequest);
+        return ResponseEntity.ok(response);
     }
-    public String deleteConcourseId(){
-        return "lista de concursos";
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteConcourseById(@PathVariable Long id) {
+        concourseService.deleteConcourse(id);
+        return ResponseEntity.noContent().build();
     }
 }

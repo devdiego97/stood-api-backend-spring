@@ -14,6 +14,7 @@ import com.diegodev.stood.enums.Levels;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,46 +25,47 @@ import lombok.Setter;
 @Table(name="concourses")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class ConcoursesEntity {
+@AllArgsConstructor
+public class ConcourseEntity {
 
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @NotBlank(message = "campo titulo obrigatório")
-    @Size(min = 5,max = 50,message = " o titulo da vaga deve ter entre 5  e 50 caracteres")
+    @Size(min = 5,max = 50,message = " o titulo do concurso deve ter entre 5  e 50 caracteres")
     private String title;
     
     @NotBlank(message = "campo sobre é obrigatório")
     @Size(min = 100,max=4000,message = "campo sobre deve ter entre 100 e 4000 caracteres")
     private String about;
+    @NotBlank(message = "campo urlSubscription obrigatório")
+    @Size(min = 5,max = 50,message = " o urlSubscription deve ter entre 5  e 50 caracteres")
+    private String urlSubscription;
     
     private String cover;
     
-    @Column(name="average-salary",precision = 10, scale = 2)
+    @Column(name="average-salary", precision = 10, scale = 2)
+    @NotNull(message = "campo média salarial obrigatório") // Adicione se for obrigatório
     private BigDecimal mediaSalary;
-
-    @Temporal(TemporalType.DATE)
-    @NotBlank(message = "campo data máxima de inscrição obrigatória")
-    private Date dateMaxSubscription;
 
     @Enumerated(EnumType.STRING)
     private  Status status;
     
     @Enumerated(EnumType.STRING)
-    private Abrangency Abrangency;
+    private Abrangency abrangency;
         
     @Enumerated(EnumType.STRING)
     private Levels level;
     
     @Temporal(TemporalType.DATE)
-    @NotBlank(message = "campo data minima de inscrição obrigatória")
+    @NotNull(message = "campo data máxima de inscrição obrigatória") // Use @NotNull em vez de @NotBlank
+    private Date dateMaxSubscription;
+    
+    @Temporal(TemporalType.DATE)
+    @NotNull(message = "campo data mínima de inscrição obrigatória") // Use @NotNull em vez de @NotBlank
     private Date dateMinSubscription;
-
-    @NotBlank(message = "campo url  de inscrição obrigatória")
-    private  String urlSubscription;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
