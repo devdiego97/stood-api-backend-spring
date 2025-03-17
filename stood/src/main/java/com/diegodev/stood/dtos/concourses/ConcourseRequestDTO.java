@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record ConcourseRequest(
+public record ConcourseRequestDTO(
     @NotBlank(message = "campo titulo obrigatório")
     @Size(min = 5,max = 50,message = " o titulo do concurso deve ter entre 5  e 50 caracteres")
     String title,

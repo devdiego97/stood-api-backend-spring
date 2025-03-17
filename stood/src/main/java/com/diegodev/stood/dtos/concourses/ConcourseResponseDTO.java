@@ -10,7 +10,7 @@ import com.diegodev.stood.enums.Abrangency;
 import com.diegodev.stood.enums.Levels;
 import com.diegodev.stood.enums.Status;
 
-public record ConcourseResponse(
+public record ConcourseResponseDTO(
    Long id,
     String title,
     String about,

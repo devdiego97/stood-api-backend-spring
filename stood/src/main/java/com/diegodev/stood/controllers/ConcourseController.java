@@ -12,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.diegodev.stood.dtos.concourses.ConcourseRequest;
-import com.diegodev.stood.dtos.concourses.ConcourseResponse;
+import com.diegodev.stood.dtos.concourses.ConcourseRequestDTO;
+import com.diegodev.stood.dtos.concourses.ConcourseResponseDTO;
 import com.diegodev.stood.services.ConcourseService;
 
 
@@ -30,7 +30,7 @@ public class ConcourseController {
 
 
     @GetMapping
-    public Page<ConcourseResponse> getAllConcourses(
+    public Page<ConcourseResponseDTO> getAllConcourses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -38,26 +38,26 @@ public class ConcourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ConcourseResponse> getConcourseById(@PathVariable Long id) {
-        ConcourseResponse response = concourseService.getConcourseById(id);
+    public ResponseEntity<ConcourseResponseDTO> getConcourseById(@PathVariable Long id) {
+        ConcourseResponseDTO response = concourseService.getConcourseById(id);
         return ResponseEntity.ok(response);
     }
    
 
     @PostMapping()
-    public ResponseEntity<ConcourseResponse> addNewConcourse(
-           @RequestBody ConcourseRequest concourseRequest) {
+    public ResponseEntity<ConcourseResponseDTO> addNewConcourse(
+           @RequestBody ConcourseRequestDTO concourseRequest) {
 
-        ConcourseResponse response = concourseService.createConcourse(concourseRequest);
+        ConcourseResponseDTO response = concourseService.createConcourse(concourseRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     } 
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<ConcourseResponse> updateConcourseById(
+    public ResponseEntity<ConcourseResponseDTO> updateConcourseById(
             @PathVariable Long id,
-            @RequestBody ConcourseRequest concourseRequest) {
-        ConcourseResponse response = concourseService.updateConcourse(id, concourseRequest);
+            @RequestBody ConcourseRequestDTO concourseRequest) {
+        ConcourseResponseDTO response = concourseService.updateConcourse(id, concourseRequest);
         return ResponseEntity.ok(response);
     }
 

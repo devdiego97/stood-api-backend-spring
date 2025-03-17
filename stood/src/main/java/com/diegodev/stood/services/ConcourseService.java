@@ -9,8 +9,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.diegodev.stood.dtos.concourses.ConcourseRequest;
-import com.diegodev.stood.dtos.concourses.ConcourseResponse;
+import com.diegodev.stood.dtos.concourses.ConcourseRequestDTO;
+import com.diegodev.stood.dtos.concourses.ConcourseResponseDTO;
 import com.diegodev.stood.entites.ConcourseEntity;
 import com.diegodev.stood.exception.ResourceNotFoundException;
 import com.diegodev.stood.repositorys.ConcourseRepository;
@@ -24,18 +24,18 @@ public class ConcourseService {
 
     private final ConcourseRepository concourseRepository;
 
-    public ConcourseResponse createConcourse(ConcourseRequest concourseRequest) {
+    public ConcourseResponseDTO createConcourse(ConcourseRequestDTO concourseRequest) {
         ConcourseEntity concourseEntity = ConvertDTOtoEntity(concourseRequest);
         ConcourseEntity savedConcourse = concourseRepository.save(concourseEntity);
         return convertToResponse(savedConcourse);
     }
 
-    public Page<ConcourseResponse> listAllConcourses(Pageable pageable) {
+    public Page<ConcourseResponseDTO> listAllConcourses(Pageable pageable) {
         // Recupera uma página de entidades ConcourseEntity do banco de dados
         Page<ConcourseEntity> concoursePage = concourseRepository.findAll(pageable);
 
         // Converte cada ConcourseEntity em ConcourseResponse
-        List<ConcourseResponse> concourseResponses = concoursePage.getContent().stream()
+        List<ConcourseResponseDTO> concourseResponses = concoursePage.getContent().stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
 
@@ -43,13 +43,13 @@ public class ConcourseService {
         return new PageImpl<>(concourseResponses, pageable, concoursePage.getTotalElements());
     }
 
-    public ConcourseResponse getConcourseById(Long id) {
+    public ConcourseResponseDTO getConcourseById(Long id) {
         ConcourseEntity concourseEntity = concourseRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Concurso não encontrado com o ID: " + id));
         return convertToResponse(concourseEntity);
     }
 
-    public ConcourseResponse updateConcourse(Long id, ConcourseRequest concourseRequest) {
+    public ConcourseResponseDTO updateConcourse(Long id, ConcourseRequestDTO concourseRequest) {
         ConcourseEntity concourseEntity = concourseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Concurso não encontrado"));
         concourseEntity.setTitle(concourseRequest.title());
@@ -74,7 +74,7 @@ public class ConcourseService {
     }
 
     // Recebe os dados do DTO e converte para entidade
-    private ConcourseEntity ConvertDTOtoEntity(ConcourseRequest concourse) {
+    private ConcourseEntity ConvertDTOtoEntity(ConcourseRequestDTO concourse) {
         ConcourseEntity concourseEntity = new ConcourseEntity();
         concourseEntity.setTitle(concourse.title());
         concourseEntity.setAbout(concourse.about());
@@ -93,8 +93,8 @@ public class ConcourseService {
         return concourseEntity;
     }
 
-    private ConcourseResponse convertToResponse(ConcourseEntity concourseEntity) {
-        return new ConcourseResponse(
+    private ConcourseResponseDTO convertToResponse(ConcourseEntity concourseEntity) {
+        return new ConcourseResponseDTO(
             concourseEntity.getId(),
             concourseEntity.getTitle(),
             concourseEntity.getAbout(),
