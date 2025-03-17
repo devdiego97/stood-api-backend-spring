@@ -1,6 +1,7 @@
 package com.diegodev.stood.entites;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
@@ -33,6 +34,22 @@ public class ConcourseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotBlank(message = "campo numero de vagas obrigatório")
+    private BigInteger numVacancies;
+
+
+    @NotBlank(message = "campo city é obrigatório")
+    @Size(min = 5,max = 50,message = "a cidade do concurso deve ter entre 5  e 50 caracteres")
+    private String city;
+    @NotBlank(message = "campo state é obrigatório")
+    @Size(min = 2,max =2,message = "o estado  do concurso deve ter entre 5  e 50 caracteres")
+    private String state;
+
+
+    @NotBlank(message = "campo banca obrigatório")
+    @Size(min = 5,max = 50,message = "a banca concurso deve ter entre 5  e 50 caracteres")
+    private String organization;
+
     @NotBlank(message = "campo titulo obrigatório")
     @Size(min = 5,max = 50,message = " o titulo do concurso deve ter entre 5  e 50 caracteres")
     private String title;

@@ -86,6 +86,10 @@ public class ConcourseService {
         concourseEntity.setMediaSalary(concourse.mediaSalary());
         concourseEntity.setStatus(concourse.status());
         concourseEntity.setUrlSubscription(concourse.urlSubscription());
+        concourseEntity.setNumVacancies(concourse.numVacancies());
+        concourseEntity.setCity(concourse.city());
+        concourseEntity.setState(concourse.state());
+        concourseEntity.setOrganization(concourse.organization());
         return concourseEntity;
     }
 
@@ -102,8 +106,14 @@ public class ConcourseService {
             concourseEntity.getLevel(),
             concourseEntity.getUrlSubscription(),
             concourseEntity.getMediaSalary(),
+            concourseEntity.getNumVacancies(),
+            concourseEntity.getCity(),
+            concourseEntity.getState(),
+            concourseEntity.getOrganization(),
             concourseEntity.getCreatedAt(),
             concourseEntity.getUpdatedAt()
+            
+        
         );
     }
 }

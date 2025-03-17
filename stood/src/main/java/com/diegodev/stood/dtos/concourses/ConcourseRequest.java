@@ -1,6 +1,7 @@
 package com.diegodev.stood.dtos.concourses;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -50,10 +51,23 @@ public record ConcourseRequest(
 
     @NotBlank(message = "campo urlSubscription obrigatório")
     @Size(min = 5,max = 50,message = " o urlSubscription deve ter entre 5  e 50 caracteres")
-    String urlSubscription
+    String urlSubscription,
+
+  @NotBlank(message = "campo numero de vagas obrigatório")
+    BigInteger numVacancies,
 
 
+    @NotBlank(message = "campo city é obrigatório")
+    @Size(min = 5,max = 50,message = "a cidade do concurso deve ter entre 5  e 50 caracteres")
+    String city,
+    @NotBlank(message = "campo state é obrigatório")
+    @Size(min = 2,max =2,message = "o estado  do concurso deve ter entre 5  e 50 caracteres")
+    String state,
 
+
+    @NotBlank(message = "campo banca obrigatório")
+    @Size(min = 5,max = 50,message = "a banca concurso deve ter entre 5  e 50 caracteres")
+    String organization
 
 ) {
 

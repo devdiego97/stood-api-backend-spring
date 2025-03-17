@@ -1,6 +1,7 @@
 package com.diegodev.stood.dtos.concourses;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +22,10 @@ public record ConcourseResponse(
     Levels level,
     String urlSubscription,
     BigDecimal mediaSalary,
+    BigInteger numVacancies,
+    String city,
+    String state,
+    String organization,
     LocalDateTime createdAt,
     LocalDateTime updatedAt
 ) {
